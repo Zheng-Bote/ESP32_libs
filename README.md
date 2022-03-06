@@ -73,11 +73,17 @@ install the Arduino IDE or use the web online version
 ### Installation
 
 1. Clone the repo
+   **Note that master is generally a work in progress, and you probably want to use a tagged release version.**
    ```sh
    git clone https://github.com/Zheng-Bote/ESP32_libs.git
    ```
-2. add required lib to your project
-   `#include "<the_lib>.h"`
+2. copy the libs manually to /usr/local/include/ESP32/
+   (CMake / Makefile coming soon...)
+   ```sh
+   sudo mkdir -d /usr/local/include/ESP32 && cp ./* /usr/local/include/ESP32/.
+   ```
+3. add required lib to your project
+   `#include "ESP32/the_lib.h"`
 
 4. load firmware on ESP32
 
@@ -86,9 +92,10 @@ install the Arduino IDE or use the web online version
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] list all libs with short description
+- [x] list all libs with short description (see Wiki)
 - [x] optimize header files with docu (mostly done, except older libs)
 - [x] optimize mem usage (stack/heap)
+- [ ] create CMake/Makefile for installation/updates
 - [ ] ???
 
 Maybe a Kanban board will be established (soon)

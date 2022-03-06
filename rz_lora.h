@@ -1,7 +1,26 @@
-/* RRBBP
-* 2019-10-06
-* v0.03
-* last change: Lora receive
+/*
+TITLE: 
+	rz_http.h
+
+BRIEF:
+	header only library
+
+DESC: 
+  Arduino lib for ESP32 Lora
+  * don't use, deprecated
+
+SOURCE: 
+  https://github.com/Zheng-Bote/ESP32_libs
+
+SYNTAX:
+	--
+RETURN:
+	--
+
+Version | Date       | Developer  | Comments
+------- | ---------- | ---------- | ---------------------------------------------------------------
+0.0.3   | 2019-10-06 | RZheng     | created 
+
 */
 
 #include "Arduino.h"

@@ -1,26 +1,36 @@
 /*
-LIB: 
+TITLE: 
   rz_mqtt.h
-DESC: 
-  Arduino library for ESP32, with some MQTT client functionalities (publish, subscribe)
 
-DEPENDENCIES:
-  PubSubClient
-  
+BRIEF:
+	header only library
+
+DESC: 
+	Arduino library for ESP32, with some MQTT client functionalities (publish, subscribe)
+	DEPENDENCIES:
+	- PubSubClient
+	
+	Topic begins allways with ESP32/ESP32-<Chip-ID> where "Chip-ID" = Mac-Address
+	
+	publishing:
+	- ESP32/ESP32-<Chip-ID>/status  // NTP time during boot/setup
+	- ESP32/ESP32-<Chip-ID>/temperature
+	- ESP32/ESP32-<Chip-ID>/humidity
+	
+	subscribing:
+	- ESP32/ESP32-<Chip-ID>/get_temperature
+	- ESP32/ESP32-<Chip-ID>/get_humidity
+
 SOURCE: 
   https://github.com/Zheng-Bote/ESP32_libs
 
-Topic begins allways with ESP32/ESP32-<Chip-ID> where "Chip-ID" = Mac-Address
+SYNTAX:
+	#include "rz_mqtt.h"
+	
+	int rz_mqttclient_start(std::string hostId)
+	bool rz_mqtt_sendMsg(std::string mqtt_topic, char mqtt_msg[])
 
-publishing:
-  ESP32/ESP32-<Chip-ID>/status  // NTP time during boot/setup
-  ESP32/ESP32-<Chip-ID>/temperature
-  ESP32/ESP32-<Chip-ID>/humidity
-
-subscribing:
-  ESP32/ESP32-<Chip-ID>/get_temperature
-  ESP32/ESP32-<Chip-ID>/get_humidity
-
+HISTORY:
 Version | Date       | Developer  | Comments
 ------- | ---------- | ---------- | ---------------------------------------------------------------
 0.1.0   | 2019-10-27 | RZheng     | created

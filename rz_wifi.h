@@ -1,12 +1,28 @@
 /*
-LIB: 
+TITLE: 
   rz_wifi.h
+
+BRIEF:
+	library
+
 DESC: 
   Arduino library for ESP32 for etablsihing WiFi network
 
 SOURCE: 
   https://github.com/Zheng-Bote/ESP32_libs
 
+SYNTAX:
+	#include "ESP32/rz_wifi.h"
+	RZ_WiFi *wifi = new RZ_WiFi(char *ssid, char *password);
+	
+	bool wifi->startWiFi();
+    IPAddress wifi->getIpAddr();
+    bool wifi->startMDNS(std::string hostId);
+
+RETURN:
+	void
+
+HISTORY:
 Version | Date       | Developer        | Comments
 ------- | ---------- | ---------------- | ---------------------------------------------------------------
 0.1.0   | 2019-10-27 | RZheng           | created

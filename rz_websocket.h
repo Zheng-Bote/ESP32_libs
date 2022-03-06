@@ -1,8 +1,30 @@
-/* RRBBP
- * 2018-10-14
- * v0.02
-*/
+/*
+TITLE: 
+	websocket.h
 
+BRIEF:
+	header only library
+
+DESC: 
+	Arduino library for ESP32, just provides the html content
+	* don't use, deprecated
+
+SOURCE: 
+	https://github.com/Zheng-Bote/esp32_libs
+
+SYNTAX:
+	#include "rz_websocket.h"
+	void rz_webserver_start()
+
+RETURN:
+	void
+
+HISTORY:
+Version | Date       | Developer        | Comments
+------- | ---------- | ---------------- | ---------------------------------------------------------------
+0.0.2   | 2018-10-14 | RZheng           | created 
+
+*/
 
 #include "Arduino.h"
 

@@ -1,6 +1,28 @@
-/* RRBBP
- * 2018-11-02
- * v0.01
+/*
+TITLE: 
+	rz_aes.h
+
+BRIEF:
+	header only library
+
+DESC: 
+	Arduino library for ESP32, encrypt AES128
+	* don't use, deprecated
+
+SOURCE: 
+	https://github.com/Zheng-Bote/esp32_libs
+
+SYNTAX:
+	#include "rz_aes.h"
+
+RETURN:
+	void
+
+HISTORY:
+Version | Date       | Developer        | Comments
+------- | ---------- | ---------------- | ---------------------------------------------------------------
+0.0.1   | 2018-11-02 | RZheng           | created 
+
 */
 
 #include "Arduino.h"

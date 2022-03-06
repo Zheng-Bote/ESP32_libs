@@ -1,4 +1,4 @@
-// 1.0.0
+// 1.1.0
 
 #include "Arduino.h"
 #include "rz_dht.h"
@@ -17,12 +17,15 @@ RZ_DHT::RZ_DHT() {
 }
 
 void RZ_DHT::readData() {
-  DHT dht(DHTPIN, DHTTYPE);
-  dht.begin();
+  // fix for some low quality sensors
+  delay(1000);
+  
+  DHT *dht = new DHT(DHTPIN, DHTTYPE);
+  dht->begin();
   
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   // Read temperature as Celsius (the default)
-  _dhtTemperature = dht.readTemperature();
+  _dhtTemperature = dht->readTemperature();
   // Read temperature as Fahrenheit (isFahrenheit = true)
   //float _dhtTemperature = dht.readTemperature(true);
 
@@ -33,12 +36,13 @@ void RZ_DHT::readData() {
   }
 
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  _dhtHumidity = dht.readHumidity();
+  _dhtHumidity = dht->readHumidity();
 
   if (isnan(_dhtHumidity)) {
     Serial.println("-- Failed to read from DHT sensor!");
     _sensorError = true;
   }
+  delete dht;
 }
 
 String RZ_DHT::getTemperature() {

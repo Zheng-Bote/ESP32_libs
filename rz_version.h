@@ -1,6 +1,10 @@
 /*
-LIB: 
-  rz_version.h
+TITLE: 
+	rz_version.h
+
+BRIEF: 
+    header only library
+
 DESC: 
   Arduino library, compares two semantic version strings
   - based on a function developed by Pankaj Choudhary. Unfortunately I've lost the contact and his website. Please contact me 
@@ -8,29 +12,52 @@ DESC:
 SOURCE: 
   https://github.com/Zheng-Bote/ESP32_libs
 
+SYNTAX:
+  #include "rz_version.h"
+  RZ_Version *versions = new RZ_Version();
+  int ret = versions->checkVersions("1.0.0", "1.1.0");
+
+RETURN:
+  int
+  0: version 1 is equal version 2 (ok)
+  1: version 1 is greater than version 2 (older version)
+  2: version 1 is smaller than version 2 (update available)
+
+HISTORY:
 Version | Date       | Developer        | Comments
 ------- | ---------- | ---------------- | ---------------------------------------------------------------
         |            | Pankaj Choudhary | main function developed
 1.0.0   | 2022-02-26 | RZheng           | lib created 
 
+*/
 
-##### Usage:
-// include lib
-#include "rz_version.h"
-//create instance
-RZ_Version *versions = new RZ_Version();
-// check versions: instance->checkVersions(std::string, std::string);
-int returnValue = versions->checkVersions("1.0.0", "1.2.0"));
-// returnValue:
-0   // version1 == version2
-1   // version1 > version2
-2   // version1 < version2
-255 // error
+#ifndef rz_version_h
+#define rz_version_h
 
+#include "Arduino.h"
+
+class RZ_Version {
+  public:
+    RZ_Version();
+    int checkVersions(std::string v1, std::string v2);
+    void setUpdateVersion(std::string v2);
+    std::string getUpdateVersion();
+
+  private:
+    std::string _updateVersion;
+    
+  ~RZ_Version() {
+  }
+};
+
+#endif
+
+
+/*
 ##### Example:
 //# Source >>>
 
-  #include "rz_version.h"
+  #include "ESP32/rz_version.h"
   
   // create instance
   RZ_Version *versions = new RZ_Version();
@@ -55,25 +82,3 @@ int returnValue = versions->checkVersions("1.0.0", "1.2.0"));
 //# <<< Source
 
 */
-
-
-#ifndef rz_version_h
-#define rz_version_h
-
-#include "Arduino.h"
-
-class RZ_Version {
-  public:
-    RZ_Version();
-    int checkVersions(std::string v1, std::string v2);
-    void setUpdateVersion(std::string v2);
-    std::string getUpdateVersion();
-
-  private:
-    std::string _updateVersion;
-    
-  ~RZ_Version() {
-  }
-};
-
-#endif

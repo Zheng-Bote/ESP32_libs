@@ -1,6 +1,28 @@
-/* RRBBP
- * 2018-10-14
- * v0.02
+/*
+TITLE: 
+	rz_ota.h
+
+BRIEF:
+	header only library
+
+DESC: 
+	Arduino library for ESP32 OTA firmware update
+	* don't use, deprecated
+
+SOURCE: 
+	https://github.com/Zheng-Bote/esp32_libs
+
+SYNTAX:
+	#include "rz_ota.h"
+
+RETURN:
+	void
+
+HISTORY:
+Version | Date       | Developer        | Comments
+------- | ---------- | ---------------- | ---------------------------------------------------------------
+0.0.2   | 2018-10-14 | RZheng           | created 
+
 */
 
 #include "Arduino.h"

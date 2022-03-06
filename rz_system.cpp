@@ -1,4 +1,4 @@
-// 1.0.0
+// 1.1.0
 
 #include "Arduino.h"
 #include "rz_system.h"
@@ -15,6 +15,15 @@ std::string RZ_System::getHostId() {
   snprintf(_hostId, 23, "ESP32-%08X", (uint32_t)chipId);
   nodeId = _hostId;
   return nodeId;
+}
+
+std::string RZ_System::getHostName(){
+  uint64_t chipid;  
+
+  chipid=ESP.getEfuseMac(); 
+  sprintf(_baseMacChr, "ESP32-%04X",(uint16_t)(chipid>>32));
+  
+  return _baseMacChr;
 }
 
 uint64_t RZ_System::getChipId() {
@@ -44,7 +53,7 @@ uint32_t RZ_System::getFlashChipSize() {
   return getFlashChipSize();
 }
 
-void RZ_System::doStartDeepSleep(int TIME_TO_SLEEP) {
+void RZ_System::doStartDeepSleep(unsigned long long TIME_TO_SLEEP) {
   // Conversion factor for micro seconds to seconds 
   const int uS_TO_S_FACTOR = 1000000; 
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);

@@ -1,6 +1,28 @@
-/* RRBBP
- * 2018-10-13
- * v0.01
+/*
+TITLE: 
+	rz_snippets.h
+
+BRIEF:
+	header only library
+
+DESC: 
+	Arduino library for ESP32 with some system related functions
+	* don't use, deprecated
+
+SOURCE: 
+	https://github.com/Zheng-Bote/esp32_libs
+
+SYNTAX:
+	#include "rz_snippets.h"
+
+RETURN:
+	void
+
+HISTORY:
+Version | Date       | Developer        | Comments
+------- | ---------- | ---------------- | ---------------------------------------------------------------
+0.0.1   | 2018-10-13 | RZheng           | created 
+
 */
 
 #include "Arduino.h"

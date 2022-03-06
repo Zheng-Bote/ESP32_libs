@@ -1,12 +1,24 @@
 /*
-LIB: 
-  rz_webserver.h
+TITLE: 
+	rz_webserver.h
+
+BRIEF:
+	header only library
+
 DESC: 
-  Arduino library for ESP32, just provides the html content
+	Arduino library for ESP32, just provides the html content
 
 SOURCE: 
-  https://github.com/Zheng-Bote/esp32_dht_webserver_mqtt-client
+	https://github.com/Zheng-Bote/esp32_libs
 
+SYNTAX:
+	#include "ESP32/rz_webserver.h"
+	webServer.on("/", handleRoot);
+
+RETURN:
+	void
+
+HISTORY:
 Version | Date       | Developer        | Comments
 ------- | ---------- | ---------------- | ---------------------------------------------------------------
 0.1.0   | 2022-02-26 | RZheng           | created 

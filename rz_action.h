@@ -1,7 +1,29 @@
-/* RRBBP
- * 2019-10-06
- * v0.02
- * last change: added: rz_action_msg_rcv()
+/*
+TITLE: 
+	rz_action.h
+
+BRIEF:
+	header only library
+
+DESC: 
+	Arduino library for ESP32, just provides some (LOra) functions
+	* don't use, deprecated
+
+SOURCE: 
+	https://github.com/Zheng-Bote/esp32_libs
+
+SYNTAX:
+	#include "rz_action.h"
+
+RETURN:
+	void
+
+HISTORY:
+Version | Date       | Developer        | Comments
+------- | ---------- | ---------------- | ---------------------------------------------------------------
+0.0.1   | 2019-10-05 | RZheng           | created 
+0.0.2   | 2019-10-06 | RZheng           | added: rz_action_msg_rcv()
+
 */
 
 #include "Arduino.h"
@@ -24,7 +46,7 @@ static int senderArr[2] = {0, 1};
 static int typeArr[5] = {0, 1, 2, 3, 4};
 
 // Mobile phone
-// char callerID1[] = "+491622663867"; char callerID2[] = "+491622664071";
+// char callerID1[] = "+49162xxxx"; char callerID2[] = "+49162xxxxx";
 // callerID1 = Sony , callerID2 = Samsung
 
 // Name
