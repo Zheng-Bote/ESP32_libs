@@ -12,8 +12,8 @@ SOURCE:
   https://github.com/Zheng-Bote/ESP32_libs
 
 SYNTAX:
-	#include "ESP32/rz_system.h"
-	RZ_System *esp32System = new RZ_System();
+    #include "ESP32/rz_system.h"
+    RZ_System *esp32System = new RZ_System();
 
 RETURN:
     void doRestart();

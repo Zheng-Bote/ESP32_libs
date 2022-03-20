@@ -60,6 +60,8 @@
 
 install the Arduino IDE or use the web online version
 
+**Note that master is generally a work in progress, and you probably want to use a tagged release version.**
+
 ### Prerequisites
 
 * PC or Laptop with Windows, MacOS or Linux *_^
@@ -70,9 +72,12 @@ install the Arduino IDE or use the web online version
   `https://create.arduino.cc/editor`
 * some libraries needs additional Arduino libraries (e.g. PubSubClient. See header comments)
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Installation
 
 1. Clone the repo
+
    **Note that master is generally a work in progress, and you probably want to use a tagged release version.**
    ```sh
    git clone https://github.com/Zheng-Bote/ESP32_libs.git
@@ -89,6 +94,14 @@ install the Arduino IDE or use the web online version
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+
+### Usage
+
+ see <a href="https://github.com/Zheng-Bote/ESP32_libs/wiki" alt="Wiki" title="https://github.com/Zheng-Bote/ESP32_libs/wiki">Wiki</a> for details of the libraries
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+ 
 <!-- ROADMAP -->
 ## Roadmap
 

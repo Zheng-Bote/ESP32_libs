@@ -1,30 +1,30 @@
 /*
 TITLE: 
-	rz_dht.h
+    rz_dht.h
 
 BRIEF:
-	library
+    library
 
 DESC: 
-	Arduino lib for ESP32 DHT11, DHT22 (AM2302), DHT21 (AM2301) Sensors
+    Arduino lib for ESP32 DHT11, DHT22 (AM2302), DHT21 (AM2301) Sensors
 
 SOURCE: 
-	https://github.com/Zheng-Bote/esp32_libs
+    https://github.com/Zheng-Bote/esp32_libs
 
 SYNTAX:
-	#include "rz_dht.h"
-	RZ_DHT *dhtsensor = new RZ_DHT();
-	
-	void readData();
-	String getTemperature();
-	String getHumidity();
+    #include "rz_dht.h"
+    RZ_DHT *dhtsensor = new RZ_DHT();
+    
+    void readData();
+    String getTemperature();
+    String getHumidity();
     bool getSensorStatus();
 
 RETURN:
-	void // read current sensor data
-	String temperature // 23.15 // °C
-	String humidity // 45.55 // %
-	bool error // true = sensor error, false = sensor reading ok
+    void // read current sensor data
+    String temperature // 23.15 // °C
+    String humidity // 45.55 // %
+    bool error // true = sensor error, false = sensor reading ok
 
 HISTORY:
 Version | Date       | Developer  | Comments

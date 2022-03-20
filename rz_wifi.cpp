@@ -1,10 +1,12 @@
-// 1.0.0
+// 1.1.0
 
 #include "Arduino.h"
 #include "rz_wifi.h"
 
 #include <WiFi.h>
 #include <ESPmDNS.h>
+
+ RZ_WiFi::RZ_WiFi() {}
 
  RZ_WiFi::RZ_WiFi(char *ssid, char *password) {
   _ssid = ssid;

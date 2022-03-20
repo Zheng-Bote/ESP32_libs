@@ -1,27 +1,33 @@
 /*
 TITLE: 
-	rz_ota.h
+    rz_ota.h
 
 BRIEF:
-	header only library
+    header only library
 
 DESC: 
-	Arduino library for ESP32 OTA firmware update
-	* don't use, deprecated
+    Arduino library for ESP32 OTA firmware update
+    Dependencies:
+    #include <HTTPClient.h>
+    #include <WiFi.h>
+    #include <Update.h>
+    #include "credentials.h" // see ESP32_libs/credentials.h
 
 SOURCE: 
-	https://github.com/Zheng-Bote/esp32_libs
+    https://github.com/Zheng-Bote/esp32_libs
 
 SYNTAX:
-	#include "rz_ota.h"
+    #include "rz_ota.h"
+    rz_EspFwUpd();
 
 RETURN:
-	void
+    void
 
 HISTORY:
 Version | Date       | Developer        | Comments
 ------- | ---------- | ---------------- | ---------------------------------------------------------------
 0.0.2   | 2018-10-14 | RZheng           | created 
+0.1.0   | 2022-03-19 | RZheng           | added, cleared: custom vals to credentials.h, dirty code a little bit cleared  
 
 */
 
@@ -31,72 +37,13 @@ Version | Date       | Developer        | Comments
 #define rz_ota
 
 #include <HTTPClient.h>
+#include <WiFi.h>
 #include <Update.h>
 
-const int FW_VERSION = 1;
-char* fwUrlBase = "http://192.168.178.99/ESP_FW/";
 
-String host = "192.168.178.99";  // Host => bucket-name.s3.region.amazonaws.com
-int port = 80;                  // Non https. For HTTPS 443. As of today, HTTPS doesn't work.
-String urlPath = "/ESP_FW/";
-String fwbin = "C4D9_v1.bin";    // placeholder , will be filled during runtime
-
-int contentLength = 0;
-bool isValidContentType = false;
 
 // #####
 
-int rz_EspFwCheck()
-{
-  int newVersion = FW_VERSION;
-  Serial.print( "Current ESP32 firmware version: " );
-  Serial.println( FW_VERSION );
-  Serial.print( "Checking for ESP32 firmware update..." );
-
-  String fwURL = String( fwUrlBase );
-  fwURL.concat( WiFi_hostname );
-  String fwVersionURL = fwURL;
-  fwVersionURL.concat( ".version" );
-  
-  HTTPClient httpClient;
-  httpClient.begin( fwVersionURL );
-  int httpCode = httpClient.GET();
-  if( httpCode == 200 ) 
-  {
-    Serial.println("OK");
-    
-    String newFWVersion = httpClient.getString();
-
-    newVersion = newFWVersion.toInt();  
-    if( newVersion > FW_VERSION ) 
-    {
-      Serial.println("new ESP32 firmware v" + String(newVersion) + " available");
-      fwURL.concat( "_v");
-      fwURL.concat( newVersion );
-      String fwImageURL = fwURL;
-      fwImageURL.concat( ".bin" );
-      Serial.print( "firmware link: " );
-      Serial.println(fwImageURL);
-      httpClient.end();
-      return 0;
-    }
-    else
-    {
-      Serial.println("current ESP32 firmware is up2date");
-      httpClient.end();
-      return -1;
-    }
-  }
-  else
-  {
-    Serial.print("NOK");
-    Serial.println( "Firmware version check failed, got HTTP response code: " );
-    Serial.println( httpCode );
-    Serial.println(fwVersionURL);
-    httpClient.end();
-    return -1;
-  }
-}
 
 String getHeaderValue(String header, String headerName) 
 {
@@ -105,76 +52,26 @@ String getHeaderValue(String header, String headerName)
 
 int rz_EspFwUpd() 
 {
-  int newVersion = FW_VERSION;
-  String fwURL, fwVersionURL, fwImageURL;
+  int contentLength = 0;
+  bool isValidContentType = false;
+  String bin;
+
+  WiFiClient wifi_client;
   
-  Serial.print( "Current ESP32 firmware version: " );
-  Serial.println( FW_VERSION );
-  Serial.print( "Checking for ESP32 firmware update..." );
-
-  fwURL = String( fwUrlBase );
-  fwURL.concat( WiFi_hostname );
-  fwVersionURL = fwURL;
-  fwVersionURL.concat( ".version" );
-  fwImageURL = "";
-  
-  HTTPClient httpClient;
-  httpClient.begin( fwVersionURL );
-  int httpCode = httpClient.GET();
-  if( httpCode == 200 ) 
-  {
-    Serial.println("OK");
-    
-    String newFWVersion = httpClient.getString();
-
-    newVersion = newFWVersion.toInt();  
-    if( newVersion > FW_VERSION ) 
-    {
-      Serial.println("new ESP32 firmware v" + String(newVersion) + " available");
-      fwURL.concat( "_v");
-      fwURL.concat( newVersion );
-      fwImageURL = fwURL;
-      fwImageURL.concat( ".bin" );
-      Serial.print( "firmware link: " );
-      Serial.println(fwImageURL);
-      httpClient.end();
-    }
-    else
-    {
-      Serial.println("current ESP32 firmware is up2date");
-      httpClient.end();
-      return -1;
-    }
-  }
-  else
-  {
-    Serial.print("NOK");
-    Serial.println( "Firmware version check failed, got HTTP response code: " );
-    Serial.println( httpCode );
-    Serial.println(fwVersionURL);
-    httpClient.end();
-    return -1;
-  } 
-
-  Serial.println( "Preparing ESP32 FW update..." );
+  Serial.println( "- Preparing ESP32 FW update..." );
 //  Serial.println(fwImageURL);  
 
-  if (wifi_client.connect(host.c_str(), port)) 
+  if (wifi_client.connect(firmwareHost.c_str(), firmwareHostPort)) 
   {
-    // Connection Succeed.
-    // Fetching the bin
-    String bin;
-    bin.concat(urlPath);
-    bin.concat(WiFi_hostname);
-    bin.concat("_v");
-    bin.concat(newVersion);
-    bin.concat(".bin");
+
+    bin.concat(firmwareBaseDir);
+    bin.concat(firmwareFile);
     
-    Serial.println("Fetching Bin: " + String(host) + ":" + String(port) + String(bin));
+    Serial.println("-- Fetching Bin: " + String(firmwareHost) + String(bin));
 
     // Get the contents of the bin file
-    wifi_client.print(String("GET ") + bin + " HTTP/1.1\r\n" +
-                 "Host: " + host + "\r\n" +
+    wifi_client.print(String("GET http://") + firmwareHost + bin + " HTTP/1.1\r\n" +
+                 "Host: " + firmwareHost + "\r\n" +
                  "Cache-Control: no-cache\r\n" +
                  "Connection: close\r\n\r\n");
 
@@ -230,7 +127,7 @@ int rz_EspFwUpd()
       // else break and Exit Update
       if (line.startsWith("HTTP/1.1")) {
         if (line.indexOf("200") < 0) {
-          Serial.println("Got a non 200 status code from server. Exiting OTA Update.");
+          Serial.println("-- Got a non 200 status code from server. Exiting OTA Update.");
           break;
         }
       }
@@ -239,13 +136,13 @@ int rz_EspFwUpd()
       // Start with content length
       if (line.startsWith("Content-Length: ")) {
         contentLength = atoi((getHeaderValue(line, "Content-Length: ")).c_str());
-        Serial.println("Got " + String(contentLength) + " bytes from server");
+        Serial.println("-- Got " + String(contentLength) + " bytes from server");
       }
 
       // Next, the content type
       if (line.startsWith("Content-Type: ")) {
         String contentType = getHeaderValue(line, "Content-Type: ");
-        Serial.println("Got " + contentType + " payload.");
+        Serial.println("-- Got " + contentType + " payload.");
         if (contentType == "application/octet-stream") {
           isValidContentType = true;
         }
@@ -255,13 +152,13 @@ int rz_EspFwUpd()
     // Connect to S3 failed
     // May be try?
     // Probably a choppy network?
-    Serial.println("Connection to " + String(host) + " failed. Please check your setup");
+    Serial.println("-- Connection to " + String(firmwareHost) + " failed. Please check your setup");
     // retry??
     // execOTA();
   }
 
   // Check what is the contentLength and if content type is `application/octet-stream`
-  Serial.println("contentLength : " + String(contentLength) + ", isValidContentType : " + String(isValidContentType));
+  Serial.println("-- contentLength : " + String(contentLength) + ", isValidContentType : " + String(isValidContentType));
 
   // check contentLength and content type
   if (contentLength && isValidContentType) {
@@ -270,40 +167,40 @@ int rz_EspFwUpd()
 
     // If yes, begin
     if (canBegin) {
-      Serial.println("Begin OTA. This may take 2 - 5 mins to complete. Things might be quite for a while.. Patience!");
+      Serial.println("-- Begin OTA. This may take 2 - 5 mins to complete. Things might be quite for a while.. Patience!");
       // No activity would appear on the Serial monitor
       // So be patient. This may take 2 - 5mins to complete
       size_t written = Update.writeStream(wifi_client);
 
       if (written == contentLength) {
-        Serial.println("Written : " + String(written) + " successfully");
+        Serial.println("-- Written : " + String(written) + " successfully");
       } else {
-        Serial.println("Written only : " + String(written) + "/" + String(contentLength) + ". Retry?" );
+        Serial.println("-- Written only : " + String(written) + "/" + String(contentLength) + ". Retry?" );
         // retry??
         // execOTA();
       }
 
       if (Update.end()) {
-        Serial.println("OTA done!");
+        Serial.println("-- OTA done!");
         if (Update.isFinished()) {
-          Serial.println("Update successfully completed. Rebooting.");
+          Serial.println("-- Update successfully completed. Rebooting.\n");
           ESP.restart();
         } else {
-          Serial.println("Update not finished? Something went wrong!");
+          Serial.println("-- Update not finished? Something went wrong!\n");
         }
       } else {
-        Serial.println("Error Occurred. Error #: " + String(Update.getError()));
+        Serial.println("-- Error Occurred. Error #: " + String(Update.getError()));
       }
     } else {
       // not enough space to begin OTA
       // Understand the partitions and
       // space availability
-      Serial.println("Not enough space to begin OTA");
-      wifi_client.flush();
+      Serial.println("-- Not enough space to begin OTA\n");
+       wifi_client.flush();
     }
   } else {
-    Serial.println("There was no content in the response");
-    wifi_client.flush();
+    Serial.println("-- There was no content in the response\n");
+     wifi_client.flush();
   }
 
 }

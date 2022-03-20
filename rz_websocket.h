@@ -1,23 +1,23 @@
 /*
 TITLE: 
-	websocket.h
+    rz_websocket.h
 
 BRIEF:
-	header only library
+    header only library
 
 DESC: 
-	Arduino library for ESP32, just provides the html content
-	* don't use, deprecated
+    Arduino library for ESP32, just provides the html content
+    * don't use, deprecated
 
 SOURCE: 
-	https://github.com/Zheng-Bote/esp32_libs
+    https://github.com/Zheng-Bote/esp32_libs
 
 SYNTAX:
-	#include "rz_websocket.h"
-	void rz_webserver_start()
+    #include "rz_websocket.h"
+    void rz_webserver_start()
 
 RETURN:
-	void
+    void
 
 HISTORY:
 Version | Date       | Developer        | Comments

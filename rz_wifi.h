@@ -28,6 +28,7 @@ Version | Date       | Developer        | Comments
 0.1.0   | 2019-10-27 | RZheng           | created
 0.3.0   | 2022-02-26 | RZheng           | modified 
 1.0.0   | 2022-02-27 | RZheng           | finalized 
+1.1.0   | 2022-03-19 | RZheng           | Constructor for manual WiFi or WiFiManager 
 
 */
 
@@ -38,6 +39,9 @@ Version | Date       | Developer        | Comments
 
 class RZ_WiFi {
   public:
+    // for WiFiMananger
+    RZ_WiFi();
+    // for manual WiFi
     RZ_WiFi(char *ssid, char *password);
     bool startWiFi();
     IPAddress getIpAddr();
@@ -55,3 +59,10 @@ class RZ_WiFi {
 };
 
 #endif 
+
+
+/*
+    WL_CONNECTION_LOST: assigned when the connection is lost;
+    WL_DISCONNECTED: assigned when disconnected from a network;
+    https://www.arduino.cc/en/Reference/WiFiClientAvailable
+*/

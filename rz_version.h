@@ -1,32 +1,32 @@
 /*
 TITLE: 
-	rz_version.h
+    rz_version.h
 
 BRIEF: 
     header only library
 
 DESC: 
-  Arduino library, compares two semantic version strings
-  - based on a function developed by Pankaj Choudhary. Unfortunately I've lost the contact and his website. Please contact me 
+    Arduino library, compares two semantic version strings
+    - based on a function developed by Pankaj Choudhary. Unfortunately I've lost the contact and his website. Please contact me 
 
 SOURCE: 
-  https://github.com/Zheng-Bote/ESP32_libs
+    https://github.com/Zheng-Bote/ESP32_libs
 
 SYNTAX:
-  #include "rz_version.h"
-  RZ_Version *versions = new RZ_Version();
-  int ret = versions->checkVersions("1.0.0", "1.1.0");
+    #include "rz_version.h"
+    RZ_Version *versions = new RZ_Version();
+    int ret = versions->checkVersions("1.0.0", "1.1.0");
 
 RETURN:
-  int
-  0: version 1 is equal version 2 (ok)
-  1: version 1 is greater than version 2 (older version)
-  2: version 1 is smaller than version 2 (update available)
+    int
+    0: version 1 is equal version 2 (ok)
+    1: version 1 is greater than version 2 (older version)
+    2: version 1 is smaller than version 2 (update available)
 
 HISTORY:
 Version | Date       | Developer        | Comments
 ------- | ---------- | ---------------- | ---------------------------------------------------------------
-        |            | Pankaj Choudhary | main function developed
+0.0.0   | xxxx-xx-xx | Pankaj Choudhary | main function developed
 1.0.0   | 2022-02-26 | RZheng           | lib created 
 
 */

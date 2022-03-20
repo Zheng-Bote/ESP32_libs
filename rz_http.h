@@ -1,24 +1,24 @@
 /*
 TITLE: 
-	rz_http.h
+    rz_http.h
 
 BRIEF:
-	library
+    library
 
 DESC: 
-  Arduino lib for ESP32 http client. Gets the current firmware version on Github
+    Arduino lib for ESP32 http client. Gets the current firmware version on Github
 
 SOURCE: 
-  https://github.com/Zheng-Bote/ESP32_libs
+    https://github.com/Zheng-Bote/ESP32_libs
 
-  SYNTAX:
-  #include "rz_http.h"
-  #include "rz_version.h"
-  
-  RZ_HTTP *httpclient = new RZ_HTTP();
-  RZ_Version *versions = new RZ_Version();
-  
-  checkVersion(versions->checkVersions(appVersion, httpclient->checkFirmware()));  
+SYNTAX:
+    #include "rz_http.h"
+    #include "rz_version.h"
+    
+    RZ_HTTP *httpclient = new RZ_HTTP();
+    RZ_Version *versions = new RZ_Version();
+    
+    checkVersion(versions->checkVersions(appVersion, httpclient->checkFirmware()));  
 
 RETURN:
     std::string checkFirmware();

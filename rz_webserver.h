@@ -1,22 +1,22 @@
 /*
 TITLE: 
-	rz_webserver.h
+    rz_webserver.h
 
 BRIEF:
-	header only library
+    header only library
 
 DESC: 
-	Arduino library for ESP32, just provides the html content
+    Arduino library for ESP32, just provides the html content
 
 SOURCE: 
-	https://github.com/Zheng-Bote/esp32_libs
+    https://github.com/Zheng-Bote/esp32_libs
 
 SYNTAX:
-	#include "ESP32/rz_webserver.h"
-	webServer.on("/", handleRoot);
+    #include "ESP32/rz_webserver.h"
+    webServer.on("/", handleRoot);
 
 RETURN:
-	void
+    void
 
 HISTORY:
 Version | Date       | Developer        | Comments
